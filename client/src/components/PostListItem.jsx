@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Image from "./Image";
 import { format } from "timeago.js";
-
 const PostListItem = ({post}) => {
+ 
   return (
     <div className="flex flex-col xl:flex-row gap-8 mb-12">
       {post.img && <div className="md:hidden xl:block xl:w-1/3">
