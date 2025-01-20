@@ -73,33 +73,26 @@ const SinglePostPage = () => {
             </div>
           </div>
           {/* <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur</p> */}
-          <div className="flex gap-2">
-            <Link>
-              <Image src="facebook.svg" />
-            </Link>
-            <Link>
-              <Image src="instagram.svg" />
-            </Link>
-          </div>
+          
           <PostMenuAction post={data}/>
           <h1 className="mt-8 mb-4 text-sm font-medium">Categories</h1>
           <div className="flex flex-col gap-2 text-sm">
-            <Link className="underline">All</Link>
-            <Link className="underline" to="/">
+            <span className="underline">All</span>
+            <span className="underline" to="/">
               Web Design
-            </Link>
-            <Link className="underline" to="/">
+            </span>
+            <span className="underline" to="/">
               Development
-            </Link>
-            <Link className="underline" to="/">
+            </span>
+            <span className="underline" to="/">
               Databases
-            </Link>
-            <Link className="underline" to="/">
+            </span>
+            <span className="underline" to="/">
               Search Engines
-            </Link>
-            <Link className="underline" to="/">
+            </span>
+            <span className="underline" to="/">
               Marketing
-            </Link>
+            </span>
           </div>
           <h1 className="mt-8 mb-4 text-sm font-medium">Search</h1>
           <Search />
