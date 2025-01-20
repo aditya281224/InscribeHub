@@ -14,12 +14,12 @@ const postSchema = new Schema(
     },
     title:{
       type:String,
-      reqired:true,
+      required:true,
       unique:true,
     },
     slug:{
       type:String,
-      reqired:true,
+      required:true,
       unique:true,
     },
     desc:{

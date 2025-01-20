@@ -42,6 +42,12 @@ export const deleteComment=async (req,res)=>{
   if(!clerkUserId){
     return res.status(401).json("Not Authenticated")
   }
+  const role = req.auth.sessionClaims?.metadata?.role || "user";
+
+  if (role === "admin") {
+    await Comment.findByIdAndDelete(req.params.id);
+    return res.status(200).json("Comment has been deleted");
+  }
 
   const user=User.findOne({clerkUserId})
 
@@ -54,6 +60,7 @@ export const deleteComment=async (req,res)=>{
   if (!deletedComment) {
     return res.status(403).json("You can delete only your comment!");
   }
+
 
   res.status(200).json("Comment deleted");
 

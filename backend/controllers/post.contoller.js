@@ -33,62 +33,49 @@ export const getPost=async (req,res)=>{
 
 
 export const createPost = async (req, res) => {
-  const clerkUserId = req.auth?.userId;
+  const clerkUserId = req.auth.userId;
 
-  // Log headers for debugging
-  console.log("Headers:", req.headers);
-  console.log("Clerk User ID:", clerkUserId);
-
-  // Check for authentication
   if (!clerkUserId) {
-    console.error("Authentication failed: Missing userId");
-    return res.status(401).json({ message: "Not Authenticated: Missing userId" });
+      return res.status(401).json("Not authenticated!");
   }
 
-  try {
-    // Find the user in the database
-    const user = await User.findOne({ clerkUserId });
-    if (!user) {
-      console.error("User not found for clerkUserId:", clerkUserId);
-      return res.status(404).json({ message: "User not found" });
-    }
+  const user = await User.findOne({clerkUserId});
 
-    // Validate request body
-    if (!req.body.title) {
-      return res.status(400).json({ message: "Title is required" });
-    }
-
-    // Generate a unique slug
-    let slug = req.body.title.replace(/ /g, "-").toLowerCase();
-    const similarSlugs = await Post.find({ slug: { $regex: `^${slug}` } });
-
-    if (similarSlugs.length) {
-      slug = `${slug}-${similarSlugs.length + 1}`;
-    }
-
-    // Create and save the new post
-    const newPost = new Post({
-      user: user._id,
-      slug,
-      ...req.body,
-    });
-
-    const post = await newPost.save();
-    console.log("Post created successfully:", post);
-
-    res.status(200).json(post);
-  } catch (error) {
-    console.error("Error creating post:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+  if (!user) {
+      return res.status(401).json("User not found!");
   }
-};
+
+  let slug = req.body.title.replace(/ /g, "-").toLowerCase();
+  let existingPost = await Post.findOne({slug});
+  let counter = 2;
+
+  while (existingPost) {
+      slug = `${slug}-${counter}`;
+      existingPost = await Post.findOne({slug});
+      counter++;
+  }
+
+  const newPost = new Post({ user: user._id, slug, ...req.body});
+  await newPost.save();
+
+  return res.status(200).json(newPost);
+}
+
 
 export const deletePost=async (req,res)=>{
   const clerkUserId = req.auth.userId;
 
+
   if (!clerkUserId) {
     return res.status(401).json("Not authenticated!");
   }
+
+  const role = req.auth.sessionClaims?.metadata?.role || "user";
+
+  if (role === "admin") {
+    await Post.findByIdAndDelete(req.params.id)
+    res.status(200).json("Post has been deleted")
+}
 
   const user =await User.findOne({clerkUserId});
   
@@ -103,6 +90,40 @@ export const deletePost=async (req,res)=>{
   
   res.status(200).json("Post has been deleted")
 }
+
+export const featurePost = async (req, res) => {
+  const clerkUserId = req.auth.userId;
+  const postId = req.body.postId;
+
+  if (!clerkUserId) {
+    return res.status(401).json("Not authenticated!");
+  }
+
+  const role = req.auth.sessionClaims?.metadata?.role || "user";
+
+  if (role !== "admin") {
+    return res.status(403).json("You cannot feature posts!");
+  }
+
+  const post = await Post.findById(postId);
+
+  if (!post) {
+    return res.status(404).json("Post not found!");
+  }
+
+  const isFeatured = post.isFeatured;
+
+  const updatedPost = await Post.findByIdAndUpdate(
+    postId,
+    {
+      isFeatured: !isFeatured,
+    },
+    { new: true }
+  );
+
+  res.status(200).json(updatedPost);
+};
+ 
 
 const imagekit = new ImageKit({
   urlEndpoint: process.env.IK_URL_ENDPOINT,
