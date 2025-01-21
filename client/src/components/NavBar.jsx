@@ -51,8 +51,8 @@ const Navbar = () => {
           }`}
         >
           <Link to="/" onClick={handleMenuClick}>Home</Link>
-          <Link to="/posts?sort=trending" onClick={handleMenuClick}>Trending</Link>
-          <Link to="/posts?sort=popular" onClick={handleMenuClick}>Most Popular</Link>
+          {/* <Link to="/posts?sort=trending" onClick={handleMenuClick}>Trending</Link>
+          <Link to="/posts?sort=popular" onClick={handleMenuClick}>Most Popular</Link> */}
           <Link to="about" onClick={handleMenuClick}>About</Link>
           
           <SignedOut>
@@ -71,8 +71,8 @@ const Navbar = () => {
       {/* DESKTOP MENU */}
       <div className="hidden md:flex items-center gap-8 xl:gap-12 font-medium">
         <Link to="/">Home</Link>
-        <Link to="/posts?sort=trending">Trending</Link>
-        <Link to="/posts?sort=popular">Most Popular</Link>
+        {/* <Link to="/posts?sort=trending">Trending</Link>
+        <Link to="/posts?sort=popular">Most Popular</Link> */}
         <Link to="about">About</Link>
 
        

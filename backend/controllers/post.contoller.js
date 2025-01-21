@@ -67,8 +67,8 @@ export const getPosts=async (req,res)=>{
   const posts=await Post.find(query)
   .populate("user","username")
   .sort(sortObj)
-  .limit(limit).
-  skip((page-1)*limit)
+  .limit(limit)
+  .skip((page-1)*limit)
 
 
   const totalPosts=await Post.countDocuments();

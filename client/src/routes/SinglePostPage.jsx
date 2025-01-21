@@ -40,7 +40,7 @@ const SinglePostPage = () => {
     <div className="flex flex-col gap-8">
       <div className="flex gap-8">
         <div className="lg:w-3/5 flex flex-col gap-8">
-          <h1 className="text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-semibold">
+          <h1 className="text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-semibold bg-[#2C2C54] p-5 rounded-lg text-white hover:bg-[#3B3B78] transition-all duration-500 ease-in-out shadow-md">
             {data.title}
           </h1>
           <div className="flex items-center gap-2 text-gray-400 text-sm">
@@ -51,7 +51,7 @@ const SinglePostPage = () => {
             <Link className="text-blue-800">{data.category}</Link>
             <span>{format(data.createdAt)}</span>
           </div>
-          <p className="text-gray-500 font-medium">{data.desc}</p>
+          <p className="text-white font-medium bg-[#2C2C54] p-6 rounded-lg hover:bg-[#3B3B78] shadow-lg hover:shadow-xl transition-all duration-500 ease-in-out">{data.desc}</p>
         </div>
 
         {data.img && (
@@ -62,14 +62,14 @@ const SinglePostPage = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-12">
-        <div className="lg:text-lg flex flex-col gap-6 text-justify">
+        <div className="prose prose-lg text-gray-800 bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-500 ease-in-out">
         <div dangerouslySetInnerHTML={{ __html: data.content }} />
         </div>
 
-        <div className="px-4 h-max sticky top-8">
-          <h1 className="mb-4 text-sm font-medium">Author</h1>
+        <div className="px-6 py-8 h-max sticky top-8 bg-gradient-to-b from-[#3A3A52] to-[#2C2C54] text-gray-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 ease-in-out">
+          <h1 className="mb-4 text-base font-semibold border-b border-gray-600 pb-2">Author</h1>
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-4">
               {data.user.image && (
                 <Image
                   src={data.user.img}
@@ -79,24 +79,24 @@ const SinglePostPage = () => {
                 />
               )}
 
-              <Link className="text-blue-800">{data.user.username}</Link>
+              <Link className="text-blue-400 hover:underline">{data.user.username}</Link>
             </div>
           </div>
           {/* <p className="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur</p> */}
           
           <PostMenuAction post={data}/>
-          <h1 className="mt-8 mb-4 text-sm font-medium">Categories</h1>
-          <div className="flex flex-col gap-2 text-sm">
-          <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("")}>All</span>
+          <h1 className="mt-8 mb-4 text-sm font-semibold border-b border-gray-600 pb-2">Categories</h1>
+          <div className="flex flex-col gap-3 text-sm">
+          <span className="underline cursor-pointer hover:text-blue-400" onClick={()=>handleCategoryChange("")}>All</span>
 
-<span className="underline cursor-pointer" onClick={()=>handleCategoryChange("web-design")}>Web Design</span>
+<span className="underline cursor-pointer hover:text-blue-400" onClick={()=>handleCategoryChange("web-design")}>Web Design</span>
 
-  <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("development")}>Development</span>
-  <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("databases")}>Databases</span>
-  <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("seo")}>Search Engines</span>
-  <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("marketing")}>Marketing</span>
+  <span className="underline cursor-pointer hover:text-blue-400" onClick={()=>handleCategoryChange("development")}>Development</span>
+  <span className="underline cursor-pointer hover:text-blue-400" onClick={()=>handleCategoryChange("databases")}>Databases</span>
+  <span className="underline cursor-pointer hover:text-blue-400" onClick={()=>handleCategoryChange("seo")}>Search Engines</span>
+  <span className="underline cursor-pointer hover:text-blue-400" onClick={()=>handleCategoryChange("marketing")}>Marketing</span>
           </div>
-          <h1 className="mt-8 mb-4 text-sm font-medium">Search</h1>
+          <h1 className="mt-8 mb-4 text-base font-semibold border-b border-gray-600 pb-2">Search</h1>
           <Search />
         </div>
       </div>

@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body{
-  background-color: #FFDEE9;
-  background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 50%, #ffffff 100%);
+  background-image: linear-gradient( 109.6deg,  rgba(255,179,189,1) 1.8%, rgba(254,248,154,1) 50.6%, rgba(161,224,186,1) 100.3% );
   width: 100vw;
   overflow-x: hidden;
   font-family: "Montserrat", sans-serif;
@@ -26,3 +25,6 @@ body{
 .ql-editor{
   border:none !important;
 }
+
+
+

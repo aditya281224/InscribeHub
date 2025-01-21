@@ -51,7 +51,7 @@ const SideMenu = () => {
           Newest
         </label>
 
-        <label htmlFor='' className='flex items-center gap-2 cursor-pointer'>
+        {/* <label htmlFor='' className='flex items-center gap-2 cursor-pointer'>
           <input 
           type='radio' 
           name='sort'
@@ -67,7 +67,7 @@ const SideMenu = () => {
           onChange={handleFilterChange}
           value="trending" className='appearance-none w-4 h-4 border-[1.5px] border-blue-800 cursor-pointer rounded-sm bg-white checked:bg-blue-800'/>
           Trending
-        </label>
+        </label> */}
 
         <label htmlFor='' className='flex items-center gap-2 cursor-pointer'>
           <input 
