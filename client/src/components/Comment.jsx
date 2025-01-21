@@ -4,8 +4,8 @@ import { useAuth, useUser } from "@clerk/clerk-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import axios from "axios";
-
 import { format } from "timeago.js";
+
 const Comment = ({comment,postId}) => {
 
   const { user } = useUser();
@@ -52,7 +52,7 @@ const Comment = ({comment,postId}) => {
               className="text-xs text-red-300 hover:text-red-500 cursor-pointer"
               onClick={() => mutation.mutate()}
             >
-              delete
+              Delete
               {mutation.isPending && <span>(in progress)</span>}
             </span>
           )}

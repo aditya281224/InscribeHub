@@ -22,7 +22,7 @@ const Comments = ({postId}) => {
   });
 
 
-  const QueryClient=useQueryClient()
+  const queryClient=useQueryClient()
 
   const mutation = useMutation({
     mutationFn: async (newComment) => {
@@ -36,7 +36,7 @@ const Comments = ({postId}) => {
       });
     },
     onSuccess: () => {
-      QueryClient.invalidateQueries({queryKey:["comments", postId]})
+      queryClient.invalidateQueries({queryKey:["comments", postId]})
     },
     onError:()=>{
       toast.error(error.response.data)

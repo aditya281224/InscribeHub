@@ -16,10 +16,20 @@ const SideMenu = () => {
   };
   const handleCategoryChange = (category) => {
     if (searchParams.get("cat") !== category) {
-      setSearchParams({
-        ...Object.fromEntries(searchParams.entries()),
-        cat:category,
-      });
+      const updatedParams = { 
+        ...Object.fromEntries(searchParams.entries()) 
+      };
+  
+      if (category) {
+        
+        updatedParams.cat = category;
+      } else {
+        
+        delete updatedParams.cat;
+      }
+  
+      
+      setSearchParams(updatedParams);
     }
   };
 
@@ -71,8 +81,10 @@ const SideMenu = () => {
       
       <h1 className='mt-8 mb-4 text-sm font-medium'>Categories</h1>
       <div className='flex flex-col gap-2 text-sm'>
-      <Link to="/" className="underline cursor-pointer" >All</Link>
-        <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("web-design")}>Web Design</span>
+      <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("")}>All</span>
+
+      <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("web-design")}>Web Design</span>
+
         <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("development")}>Development</span>
         <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("databases")}>Databases</span>
         <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("seo")}>Search Engines</span>

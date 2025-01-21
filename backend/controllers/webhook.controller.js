@@ -13,8 +13,7 @@ export const clerkWebHook = async (req, res) => {
     const payload = req.body;
     const headers = req.headers;
 
-    console.log(payload)
-    console.log(headers)
+    
 
     const wh = new Webhook(WEBHOOK_SECRET);
     let evt;

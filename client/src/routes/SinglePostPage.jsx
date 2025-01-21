@@ -1,7 +1,7 @@
 import Image from "../components/Image";
 import PostMenuAction from "../components/PostMenuAction";
 import Comments from "../components/Comments";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Search from "../components/Search";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -16,6 +16,8 @@ const fetchPost = async (slug) => {
 
 const SinglePostPage = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { isPending, error, data } = useQuery({
     queryKey: ["post", slug],
@@ -25,6 +27,14 @@ const SinglePostPage = () => {
   if (isPending) return "loading...";
   if (error) return "Something went wrong!" + error.message;
   if (!data) return "Post not found!";
+
+  const handleCategoryChange = (category) => {
+    if (searchParams.get("cat") !== category) {
+      const newParams = category ? `?cat=${category}` : ""; // Prepare new URL query params
+      navigate(`/posts${newParams}`); // Navigate to the PostListPage with updated query params
+    }
+  };
+  
 
   return (
     <div className="flex flex-col gap-8">
@@ -77,22 +87,14 @@ const SinglePostPage = () => {
           <PostMenuAction post={data}/>
           <h1 className="mt-8 mb-4 text-sm font-medium">Categories</h1>
           <div className="flex flex-col gap-2 text-sm">
-            <span className="underline">All</span>
-            <span className="underline" to="/">
-              Web Design
-            </span>
-            <span className="underline" to="/">
-              Development
-            </span>
-            <span className="underline" to="/">
-              Databases
-            </span>
-            <span className="underline" to="/">
-              Search Engines
-            </span>
-            <span className="underline" to="/">
-              Marketing
-            </span>
+          <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("")}>All</span>
+
+<span className="underline cursor-pointer" onClick={()=>handleCategoryChange("web-design")}>Web Design</span>
+
+  <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("development")}>Development</span>
+  <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("databases")}>Databases</span>
+  <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("seo")}>Search Engines</span>
+  <span className="underline cursor-pointer" onClick={()=>handleCategoryChange("marketing")}>Marketing</span>
           </div>
           <h1 className="mt-8 mb-4 text-sm font-medium">Search</h1>
           <Search />
